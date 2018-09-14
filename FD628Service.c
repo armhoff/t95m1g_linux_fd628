@@ -170,7 +170,11 @@ static void led_show_time_loop(){
 		}
 		write_buffer[0] = dotsVal;
 #else
-		write_buffer[0] = ledDots[LED_DOT_SEC].on ? ledDots[LED_DOT_SEC].mask : LED_MASK_VOID;
+        write_buffer[4] = ledDots[LED_DOT_SEC].on ? ledDots[LED_DOT_SEC].mask : LED_MASK_VOID;
+        write_buffer[3] = char_to_mask(hours /10);
+        write_buffer[2] = char_to_mask(hours %10);
+        write_buffer[1] = char_to_mask(timenow->tm_min /10);
+        write_buffer[0] = char_to_mask(timenow->tm_min %10);
 #endif
 		ret = write(fd628_fd,write_buffer,sizeof(write_buffer[0])*5);
 		mdelay(500);

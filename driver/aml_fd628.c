@@ -451,7 +451,7 @@ static ssize_t fd628_dev_write(struct file *filp, const char __user * buf,
 	if (missing == 0) {
 		// 状态灯能否点亮，取决于led mask
 		//data[0] |= dev->status_led_mask;
-		data[0] |= dev->status_led_mask;
+        data[4] |= dev->status_led_mask;
 		for (i = 0; i < count; i++) {
 			dev->wbuf[i * 2] = data[i];
 		}
